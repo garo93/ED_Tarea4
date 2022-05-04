@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-04-13T13:29:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Resumendepartamentos" pageWidth="840" pageHeight="600" orientation="Landscape" columnWidth="750" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" uuid="fa5741a3-340a-4f22-835f-4c72d8c4c5c9">
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="autor" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT dept_no, dnombre, loc , count(emp_no) as cuenta, round(avg(coalesce(salario,0)),2) as media, sum(coalesce(salario,0)) as suma FROM departamentos left join empleados using(dept_no) group by dept_no, dnombre, loc]]>
+	</queryString>
+	<field name="dept_no" class="java.lang.Integer"/>
+	<field name="dnombre" class="java.lang.String"/>
+	<field name="loc" class="java.lang.String"/>
+	<field name="cuenta" class="java.lang.Integer"/>
+	<field name="media" class="java.lang.Float"/>
+	<field name="suma" class="java.lang.Float"/>
+	<title>
+		<band height="60">
+			<textField>
+				<reportElement x="0" y="10" width="750" height="40" uuid="66153fbf-135a-4c35-bd97-c9368eadc58d"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="750" height="20" uuid="37e13a25-015e-4bc7-af7c-cbb332ef4dbb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Realizado por: " + $P{autor}
+                        + " on " + $P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30">
+			<rectangle>
+				<reportElement x="0" y="0" width="750" height="25" uuid="7353a8a6-a057-4520-8610-e46d8971299e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="5" width="100" height="15" uuid="887f48cb-da08-4589-8384-39eb45cf4442"/>
+				<text><![CDATA[Código depart]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="5" width="150" height="15" uuid="3b2d22aa-1840-4142-9fa8-21fd4869f39c"/>
+				<text><![CDATA[Nombre departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="5" width="150" height="15" uuid="f05f9aa6-7893-4893-80c7-2eefd2eed347"/>
+				<text><![CDATA[Localidad departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="5" width="120" height="15" uuid="f05f9aa6-7893-4893-80c7-2eefd2eed347"/>
+				<text><![CDATA[Número de empleados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="520" y="5" width="120" height="15" uuid="f05f9aa6-7893-4893-80c7-2eefd2eed347"/>
+				<text><![CDATA[Media de salario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="640" y="5" width="120" height="15" uuid="f05f9aa6-7893-4893-80c7-2eefd2eed347"/>
+				<text><![CDATA[Suma de salarios]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30">
+			<textField>
+				<reportElement x="35" y="7" width="100" height="15" uuid="02405d54-64e4-4999-b902-b44bbf88b4ac"/>
+				<textFieldExpression><![CDATA[$F{dept_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="7" width="150" height="15" uuid="7d460580-e4e8-4c6b-ac6e-a5a37c786654"/>
+				<textFieldExpression><![CDATA[$F{dnombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="7" width="150" height="15" uuid="d1fe33ee-6df4-4df5-9e7a-6c0c4b9fb810"/>
+				<textFieldExpression><![CDATA[$F{loc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="7" width="120" height="15" uuid="d1fe33ee-6df4-4df5-9e7a-6c0c4b9fb810"/>
+				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="7" width="120" height="15" uuid="d1fe33ee-6df4-4df5-9e7a-6c0c4b9fb810"/>
+				<textFieldExpression><![CDATA[$F{media}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="640" y="7" width="120" height="15" uuid="d1fe33ee-6df4-4df5-9e7a-6c0c4b9fb810"/>
+				<textFieldExpression><![CDATA[$F{suma}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="32">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="750" height="1" uuid="eba12ef3-fd1c-485f-9d52-8740af377cfb"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#FF0000"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="600" y="10" width="90" height="20" uuid="60366024-1b9b-49d0-9caf-f600b7b01dd8"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="690" y="10" width="40" height="20" uuid="6d0d3469-6d03-4ef1-bc1f-d9a9a8628a2a"/>
+				<textElement>
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="60">
+			<rectangle>
+				<reportElement x="0" y="0" width="750" height="25" uuid="444509a3-2442-41b5-aac4-03cb34412c70"/>
+			</rectangle>
+			<textField>
+				<reportElement x="10" y="5" width="300" height="15" uuid="4708d9da-6edb-41a8-b9c4-38e318c70691"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Total Registros: " +String.valueOf($V{REPORT_COUNT})]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
